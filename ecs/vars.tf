@@ -1,7 +1,7 @@
 variable "registry_name" {
 
-	description = "Wearslot ECR repo name"
-	default = "wearslotapi/services"
+  description = "Wearslot ECR repo name"
+  default     = "wearslotapi/services"
 }
 
 variable "app_count" {
@@ -10,9 +10,20 @@ variable "app_count" {
   default     = 1
 }
 
+variable "app_port" {
+
+  description = "Port for app service"
+  default     = 3000
+}
+
 variable "security_group" {
-  
+
   description = "Security groups created by the vpc resource module"
+}
+
+variable "wearslot_ecs_tasks" {
+
+  description = "ECS tasks Security groups created by the vpc resource module"
 }
 
 variable "vpc_id" {
@@ -20,7 +31,17 @@ variable "vpc_id" {
   description = "Vpc id from the vpc resource module"
 }
 
-variable "subnets" {
-  
-  description = "Subnet ips from vpc module"
+variable "public_subnet" {
+
+  description = "public subnet ips from vpc module"
 }
+
+variable "private_subnet" {
+  description = "private subnet ips from vpc module"
+}
+
+variable "eips" {
+
+  description = "Elastic ips created in the vpc module"
+}
+
