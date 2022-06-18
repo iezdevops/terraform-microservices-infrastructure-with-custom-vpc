@@ -6,8 +6,8 @@ resource "aws_ecs_service" "wearslot_ecs" {
   cluster         = aws_ecs_cluster.wearslot.id
   desired_count   = 1
 
-  # iam_role        = aws_iam_role.foo.arn
-  depends_on      = [aws_alb_listener.wearslot]
+  # iam_role        = aws_iam_role.wearslot.arn
+  depends_on      = [aws_alb_listener.wearslot, aws_iam_role_policy.wearslot]
 
   launch_type = "FARGATE"
 

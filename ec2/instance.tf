@@ -5,8 +5,13 @@ resource "aws_instance" "wearslot" {
   tags = {
     Name = var.instance_name
   }
-  key_name = "wearslot"
-  vpc_security_group_ids = [ var.security_group ]
+  key_name               = "wearslot"
+  # vpc_security_group_ids = ["sg-0da231a8412d93ecf"] #[var.security_group]
+
+  network_interface {
+    network_interface_id = aws_network_interface.wearslot.id
+    device_index         = 0
+  }
 
   connection {
     type        = "ssh"

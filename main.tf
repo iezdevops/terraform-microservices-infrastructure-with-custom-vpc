@@ -19,6 +19,8 @@ provider "aws" {
 module "ec2" {
   source         = "./ec2"
   security_group = module.vpc.security_group
+  public_subnet  = module.vpc.public_subnet
+  private_subnet = module.vpc.private_subnet
 }
 
 module "vpc" {

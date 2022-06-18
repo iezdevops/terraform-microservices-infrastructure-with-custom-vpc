@@ -9,3 +9,11 @@ variable "instance_name" {
 variable "security_group" {
   
 }
+
+variable "public_subnet" {
+  
+}
+
+variable "private_subnet" {
+  
+}
