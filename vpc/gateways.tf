@@ -6,7 +6,7 @@ resource "aws_internet_gateway" "wearslot" {
 
 
 
-# Internet gateway for private subnet 
+# Nat gateway for public subnet 
 # This requires an elastic ip depending on the public gateway
 resource "aws_nat_gateway" "wearslot" {
   

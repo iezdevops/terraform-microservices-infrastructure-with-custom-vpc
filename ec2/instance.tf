@@ -5,20 +5,25 @@ resource "aws_instance" "wearslot" {
   tags = {
     Name = var.instance_name
   }
-  key_name               = "wearslot"
+  key_name = "wearslot"
   # vpc_security_group_ids = ["sg-0da231a8412d93ecf"] #[var.security_group]
+  associate_public_ip_address = true
+  security_groups             = ["${var.security_group}"]
+  subnet_id                   = var.public_subnet[0].id
 
-  network_interface {
-    network_interface_id = aws_network_interface.wearslot.id
-    device_index         = 0
-  }
+  # network_interface {
+  #   network_interface_id = aws_network_interface.wearslot.id
+  #   device_index         = 0
+  # }
 
-  connection {
-    type        = "ssh"
-    host        = self.public_id
-    user        = "wearslot"
-    private_key = file("/wearslot.pem")
-    timeout     = "5m"
+  provisioner "remote-exec" {
+    inline = ["chmod 400 ~/${var.key_name}.pem"]
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = file("${var.key_name}.pem")
+      host        = self.public_ip
+    }
   }
 
 }

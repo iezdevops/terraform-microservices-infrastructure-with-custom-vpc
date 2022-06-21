@@ -21,6 +21,7 @@ module "ec2" {
   security_group = module.vpc.security_group
   public_subnet  = module.vpc.public_subnet
   private_subnet = module.vpc.private_subnet
+  # private_ips    = "${cidrhost(var.public_subnet, 12)},${cidrhost(var.public_subnet, 13)}"
 }
 
 module "vpc" {

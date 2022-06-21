@@ -11,14 +11,6 @@ resource "aws_security_group" "wearslot" {
     description = "Enabling port for ssh connection"
   }
 
-  ingress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 80
-    cidr_blocks = ["0.0.0.0/0"]
-    description = "Enabling port for http connection"
-  }
-
   egress {
     to_port     = 0
     from_port   = 0
