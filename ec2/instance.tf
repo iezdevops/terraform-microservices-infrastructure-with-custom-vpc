@@ -16,14 +16,14 @@ resource "aws_instance" "wearslot" {
   #   device_index         = 0
   # }
 
-  provisioner "remote-exec" {
-    inline = ["chmod 400 ~/${var.key_name}.pem"]
+  # provisioner "remote-exec" {
+  #   inline = ["chmod 400 ~/${var.key_name}.pem"]
     connection {
       type        = "ssh"
-      user        = "ec2-user"
+      user        = "ubuntu"
       private_key = file("${var.key_name}.pem")
       host        = self.public_ip
     }
-  }
+  # }
 
 }

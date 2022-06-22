@@ -10,7 +10,7 @@ resource "aws_ecs_task_definition" "wearslotapi" {
   container_definitions = <<DEFINITION
   [
     {
-      "name": "my-first-task",
+      "name": "wearslot_store_app",
       "image": "${aws_ecr_repository.wearslot_ecr_repo.repository_url}",
       "essential": true,
       "portMappings": [
