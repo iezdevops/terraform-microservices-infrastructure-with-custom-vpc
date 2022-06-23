@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     aws = {
-      source  = "hashicorp/aws"
+      source = "hashicorp/aws"
     }
   }
 
@@ -35,11 +35,11 @@ module "vpc" {
 }
 
 module "ecs" {
-  source             = "./ecs"
-  eips               = module.vpc.eips
-  vpc_id             = module.vpc.vpc_id
-  public_subnet      = module.vpc.public_subnet
-  private_subnet     = module.vpc.private_subnet
-  security_group     = module.vpc.security_group
-  ecs_tasks = module.vpc.ecs_tasks
+  source         = "./ecs"
+  eips           = module.vpc.eips
+  vpc_id         = module.vpc.vpc_id
+  public_subnet  = module.vpc.public_subnet
+  private_subnet = module.vpc.private_subnet
+  security_group = module.vpc.security_group
+  ecs_tasks      = module.vpc.ecs_tasks
 }
