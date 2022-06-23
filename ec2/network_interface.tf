@@ -1,4 +1,4 @@
-resource "aws_network_interface" "wearslot" {
+resource "aws_network_interface" "network_interface" {
 
   subnet_id       = var.private_subnet[0].id
   security_groups = ["${var.security_group}"]

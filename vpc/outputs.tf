@@ -1,9 +1,9 @@
 output "security_group" {
-  value = aws_security_group.wearslot.id
+  value = aws_security_group.security_group.id
 }
 
 output "vpc_id" {
-  value = aws_vpc.wearslot.id
+  value = aws_vpc.vpc.id
 }
 
 output "public_subnet" {
@@ -15,10 +15,10 @@ output "private_subnet" {
 }
 
 output "eips" {
-  value = aws_eip.wearslot
+  value = aws_eip.eip
 }
 
 
-output "wearslot_ecs_tasks" {
-  value = aws_security_group.wearslot_ecs_tasks
+output "ecs_tasks" {
+  value = aws_security_group.ecs_tasks
 }

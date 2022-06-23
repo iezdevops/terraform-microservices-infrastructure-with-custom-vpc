@@ -3,9 +3,9 @@
 #   image_tag       = "latest"
 # }
 
-resource "aws_ecr_repository" "wearslot_ecr_repo" {
+resource "aws_ecr_repository" "ecr_repo" {
 
-  name = "wearslot"
+  name = "${var.project_name}"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {

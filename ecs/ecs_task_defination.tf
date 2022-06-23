@@ -1,17 +1,17 @@
-resource "aws_ecs_task_definition" "wearslotapi" {
+resource "aws_ecs_task_definition" "app_task" {
 
   family                   = "app"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  task_role_arn            = "${aws_iam_role.wearslot.arn}"
-  execution_role_arn       = "${aws_iam_role.wearslot.arn}"
+  task_role_arn            = "${aws_iam_role.iam_role.arn}"
+  execution_role_arn       = "${aws_iam_role.iam_role.arn}"
 
   # container_definitions = file("containers/definations.json")
   container_definitions = <<DEFINITION
   [
     {
-      "name": "wearslot_store_app",
-      "image": "${aws_ecr_repository.wearslot_ecr_repo.repository_url}",
+      "name": "${var.container_name}",
+      "image": "${aws_ecr_repository.ecr_repo.repository_url}",
       "essential": true,
       "portMappings": [
         {

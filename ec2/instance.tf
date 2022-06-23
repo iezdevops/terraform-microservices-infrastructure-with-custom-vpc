@@ -5,7 +5,7 @@ resource "aws_instance" "wearslot" {
   tags = {
     Name = var.instance_name
   }
-  key_name = "wearslot"
+  key_name = "${var.project_name}"
   # vpc_security_group_ids = ["sg-0da231a8412d93ecf"] #[var.security_group]
   associate_public_ip_address = true
   security_groups             = ["${var.security_group}"]

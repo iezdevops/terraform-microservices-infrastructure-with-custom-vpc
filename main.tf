@@ -16,7 +16,6 @@ terraform {
 
 provider "aws" {
 
-  alias      = "wearslot_infrastruture"
   region     = var.aws_region
   access_key = "AKIARWHOR4WO7YWUFMOT"
   secret_key = "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"
@@ -42,5 +41,5 @@ module "ecs" {
   public_subnet      = module.vpc.public_subnet
   private_subnet     = module.vpc.private_subnet
   security_group     = module.vpc.security_group
-  wearslot_ecs_tasks = module.vpc.wearslot_ecs_tasks
+  ecs_tasks = module.vpc.ecs_tasks
 }

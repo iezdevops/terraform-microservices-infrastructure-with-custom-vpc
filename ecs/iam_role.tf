@@ -1,6 +1,6 @@
-resource "aws_iam_role" "wearslot" {
+resource "aws_iam_role" "iam_role" {
   
-  name = "wearslot-ecs-iam-role"
+  name = "${var.project_name}-ecs-iam-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -17,13 +17,13 @@ resource "aws_iam_role" "wearslot" {
 }
 
 
-resource "aws_iam_role_policy" "wearslot" {
+resource "aws_iam_role_policy" "iam_rpolicy" {
   
-  role   = "${aws_iam_role.wearslot.id}"
+  role   = "${aws_iam_role.iam_role.id}"
   policy = "${data.aws_iam_policy_document.ecs_service_policy.json}"
 }
 
-# resource "aws_iam_role_policy_attachment" "wearslot" {
-#     role       = "${aws_iam_role.wearslot.name}"
-#     policy_arn = "${aws_iam_role_policy.wearslot.arn}"
+# resource "aws_iam_role_policy_attachment" "iam_rp_attachment" {
+#     role       = "${aws_iam_role.iam_role.name}"
+#     policy_arn = "${aws_iam_role_policy.iam_rpolicy.arn}"
 # }

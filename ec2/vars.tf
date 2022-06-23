@@ -12,7 +12,7 @@ variable "az_count" {
   default = 2
 }
 
-variable "app_owner" {
+variable "project_name" {
   default = "wearslot"
 }
 

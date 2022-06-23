@@ -1,7 +1,7 @@
-resource "aws_security_group" "wearslot" {
+resource "aws_security_group" "security_group" {
 
   description = "Allow SSH inbound traffic"
-  vpc_id      = aws_vpc.wearslot.id
+  vpc_id      = aws_vpc.vpc.id
 
   ingress {
     to_port     = 22
@@ -20,16 +20,16 @@ resource "aws_security_group" "wearslot" {
 }
 
 # Traffic to the ECS Cluster should only come from the ALB
-resource "aws_security_group" "wearslot_ecs_tasks" {
-  name        = "wearslot-ecs-tasks"
+resource "aws_security_group" "ecs_tasks" {
+  name        = "${var.project_name}ecs-tasks"
   description = "allow inbound access from the ALB only"
-  vpc_id      = aws_vpc.wearslot.id
+  vpc_id      = aws_vpc.vpc.id
 
   ingress {
     protocol        = "tcp"
     from_port       = var.app_port
     to_port         = var.app_port
-    security_groups = ["${aws_security_group.wearslot.id}"]
+    security_groups = ["${aws_security_group.security_group.id}"]
   }
 
   egress {

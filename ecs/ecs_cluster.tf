@@ -1,6 +1,6 @@
-resource "aws_ecs_cluster" "wearslot" {
+resource "aws_ecs_cluster" "cluster" {
 
-  name = "wearslot-cluster"
+  name = "${var.project_name}-cluster"
 
   setting {
     name  = "containerInsights"

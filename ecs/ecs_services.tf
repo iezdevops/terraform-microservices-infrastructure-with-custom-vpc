@@ -1,24 +1,24 @@
-resource "aws_ecs_service" "wearslot_ecs" {
+resource "aws_ecs_service" "ecs" {
 
-  name = "Wearslot-ecs"
+  name = "${var.project_name}-ecs"
 
-  task_definition = aws_ecs_task_definition.wearslotapi.arn
-  cluster         = aws_ecs_cluster.wearslot.id
+  task_definition = aws_ecs_task_definition.app_task.arn
+  cluster         = aws_ecs_cluster.cluster.id
   desired_count   = 1
 
-  # iam_role        = aws_iam_role.wearslot.arn
-  depends_on      = [aws_alb_listener.wearslot, aws_iam_role_policy.wearslot]
+  # iam_role        = aws_iam_role.iam_role.arn
+  depends_on      = [aws_alb_listener.lb_listener, aws_iam_role_policy.iam_rpolicy]
 
   launch_type = "FARGATE"
 
   load_balancer {
-    target_group_arn = aws_alb_target_group.wearslot.arn
-    container_name   = "wearslot_store_app"
+    target_group_arn = aws_alb_target_group.alb_target_group.arn
+    container_name   = "${var.container_name}"
     container_port   = "${var.app_port}"
   }
 
   network_configuration {
-    security_groups = ["${var.wearslot_ecs_tasks.id}"]
+    security_groups = ["${var.ecs_tasks.id}"]
     subnets         = [for subnet in var.private_subnet : subnet.id]
   }
 
