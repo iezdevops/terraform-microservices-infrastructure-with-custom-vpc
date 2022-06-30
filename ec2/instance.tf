@@ -1,4 +1,4 @@
-resource "aws_instance" "wearslot" {
+resource "aws_instance" "instance" {
 
   ami           = "ami-09d56f8956ab235b3"
   instance_type = "t3.micro"
@@ -12,7 +12,7 @@ resource "aws_instance" "wearslot" {
   subnet_id                   = var.public_subnet[0].id
 
   # network_interface {
-  #   network_interface_id = aws_network_interface.wearslot.id
+  #   network_interface_id = aws_network_interface.network_interface.id
   #   device_index         = 0
   # }
 
