@@ -1,5 +1,6 @@
-resource "aws_route_table" "route_table" {
+resource "aws_route_table" "public" {
 
+  name = "${var.project_name}-pub1-route-table"
   vpc_id = aws_vpc.vpc.id
 
   # route {
@@ -11,7 +12,9 @@ resource "aws_route_table" "route_table" {
 # Create a new route table for the private subnets
 # And make it route non-local traffic through the NAT gateway to the internet
 resource "aws_route_table" "private" {
+
   count  = var.az_count
+  name = "${var.project_name}-prv${count.index}-route-table"
   vpc_id = aws_vpc.vpc.id
 
   route {
@@ -22,7 +25,7 @@ resource "aws_route_table" "private" {
 
 resource "aws_route" "rs_route" {
 
-  route_table_id         = aws_route_table.route_table.id
+  route_table_id         = aws_route_table.public.id
   gateway_id             = aws_internet_gateway.internet_gateway.id
   destination_cidr_block = "0.0.0.0/0"
 
@@ -33,5 +36,5 @@ resource "aws_route_table_association" "route-table-assoc-pubs1" {
 
   count          = var.az_count
   subnet_id      = element(aws_subnet.public.*.id, count.index)
-  route_table_id = aws_route_table.route_table.id
+  route_table_id = aws_route_table.public.id
 }

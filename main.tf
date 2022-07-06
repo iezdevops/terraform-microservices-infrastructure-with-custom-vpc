@@ -5,13 +5,13 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "Wearslot"
+  # cloud {
+  #   organization = "Wearslot"
 
-    workspaces {
-      name = "infrastructure"
-    }
-  }
+  #   workspaces {
+  #     name = "infrastructure"
+  #   }
+  # }
 }
 
 provider "aws" {

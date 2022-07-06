@@ -1,5 +1,5 @@
 resource "aws_security_group" "security_group" {
-
+  name        = "${var.project_name}-vpc-ssh-security"
   description = "Allow SSH inbound traffic"
   vpc_id      = aws_vpc.vpc.id
 
@@ -21,7 +21,7 @@ resource "aws_security_group" "security_group" {
 
 # Traffic to the ECS Cluster should only come from the ALB
 resource "aws_security_group" "ecs_tasks" {
-  name        = "${var.project_name}ecs-tasks"
+  name        = "${var.project_name}-ecs-tasks-security"
   description = "allow inbound access from the ALB only"
   vpc_id      = aws_vpc.vpc.id
 

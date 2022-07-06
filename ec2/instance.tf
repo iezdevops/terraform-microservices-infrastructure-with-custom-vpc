@@ -5,8 +5,7 @@ resource "aws_instance" "instance" {
   tags = {
     Name = var.instance_name
   }
-  key_name = "${var.project_name}"
-  # vpc_security_group_ids = ["sg-0da231a8412d93ecf"] #[var.security_group]
+  key_name                    = var.project_name
   associate_public_ip_address = true
   security_groups             = ["${var.security_group}"]
   subnet_id                   = var.public_subnet[0].id
@@ -18,12 +17,12 @@ resource "aws_instance" "instance" {
 
   # provisioner "remote-exec" {
   #   inline = ["chmod 400 ~/${var.key_name}.pem"]
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      private_key = file("${var.key_name}.pem")
-      host        = self.public_ip
-    }
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file("${var.key_name}.pem")
+    host        = self.public_ip
+  }
   # }
 
 }
