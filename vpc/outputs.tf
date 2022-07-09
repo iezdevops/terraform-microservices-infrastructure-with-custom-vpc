@@ -19,6 +19,6 @@ output "eips" {
 }
 
 
-output "ecs_tasks" {
-  value = aws_security_group.ecs_tasks
+output "ecs_sg" {
+  value = aws_security_group.ecs_sg
 }

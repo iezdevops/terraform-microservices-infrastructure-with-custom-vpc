@@ -12,7 +12,7 @@ resource "aws_alb" "lb" {
 
 resource "aws_alb_target_group" "alb_target_group" {
 
-  name        = "${var.project_name}-default-lb-target-group"
+  name        = "${var.project_name}-lb-tg"
   port        = 80
   protocol    = "HTTP"
   vpc_id      = var.vpc_id

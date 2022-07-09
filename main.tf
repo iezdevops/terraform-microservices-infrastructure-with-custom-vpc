@@ -41,5 +41,5 @@ module "ecs" {
   public_subnet  = module.vpc.public_subnet
   private_subnet = module.vpc.private_subnet
   security_group = module.vpc.security_group
-  ecs_tasks      = module.vpc.ecs_tasks
+  ecs_sg         = module.vpc.ecs_sg
 }

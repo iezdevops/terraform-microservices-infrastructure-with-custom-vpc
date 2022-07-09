@@ -1,6 +1,5 @@
 resource "aws_route_table" "public" {
 
-  name = "${var.project_name}-pub1-route-table"
   vpc_id = aws_vpc.vpc.id
 
   # route {
@@ -14,7 +13,6 @@ resource "aws_route_table" "public" {
 resource "aws_route_table" "private" {
 
   count  = var.az_count
-  name = "${var.project_name}-prv${count.index}-route-table"
   vpc_id = aws_vpc.vpc.id
 
   route {
@@ -31,7 +29,7 @@ resource "aws_route" "rs_route" {
 
 }
 
-
+# Associating route tables with public subnets 
 resource "aws_route_table_association" "route-table-assoc-pubs1" {
 
   count          = var.az_count
