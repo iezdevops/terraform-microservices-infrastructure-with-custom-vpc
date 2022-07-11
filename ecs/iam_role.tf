@@ -1,6 +1,6 @@
 resource "aws_iam_role" "iam_role" {
   
-  name = "${var.project_name}-ecs-iam-role"
+  name = "${var.project_name}-ecs-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -9,7 +9,7 @@ resource "aws_iam_role" "iam_role" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          Service = "ec2.amazonaws.com"
+          Service = "ecs.amazonaws.com"
         }
       },
     ]
@@ -25,6 +25,7 @@ resource "aws_iam_policy" "iam_policy" {
     Statement = [
       {
         Action = [
+          "ecs:*",
           "ecr:*",
         ]
         Effect   = "Allow"

@@ -5,6 +5,10 @@ terraform {
     }
   }
 
+  # backend "s3" {
+
+  # }
+
   # cloud {
   #   organization = "Wearslot"
 
@@ -15,11 +19,20 @@ terraform {
 }
 
 provider "aws" {
-
-  region     = var.aws_region
+  region     = var.region
   access_key = "AKIARWHOR4WO7YWUFMOT"
   secret_key = "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"
+}
 
+resource "aws_s3_bucket" "infra_backend_storage" {
+  bucket = "${var.project_name}-tfstate"
+}
+
+module "vpc" {
+  source       = "./vpc"
+  project_name = var.project_name
+  az_count     = 2
+  app_port     = var.container_port
 }
 
 module "ec2" {
@@ -27,11 +40,7 @@ module "ec2" {
   security_group = module.vpc.security_group
   public_subnet  = module.vpc.public_subnet
   private_subnet = module.vpc.private_subnet
-  # private_ips    = "${cidrhost(var.public_subnet, 12)},${cidrhost(var.public_subnet, 13)}"
-}
-
-module "vpc" {
-  source = "./vpc"
+  project_name   = var.project_name
 }
 
 module "ecs" {
@@ -42,4 +51,14 @@ module "ecs" {
   private_subnet = module.vpc.private_subnet
   security_group = module.vpc.security_group
   ecs_sg         = module.vpc.ecs_sg
+  project_name   = var.project_name
+  registry_name  = "${var.project_name}/registry"
+  app_count      = var.ecs_app_count
+  container_name = var.container_name
+}
+
+module "rds" {
+  source         = "./rds"
+  security_group = module.vpc.security_group
+  project_name   = var.project_name
 }

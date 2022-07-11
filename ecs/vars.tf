@@ -1,11 +1,11 @@
 variable "registry_name" {
-  description = "Wearslot ECR repo name"
-  default     = "wearslotapi/services"
+  description = "ECR repo name"
+  type        = string
 }
 
 variable "app_count" {
   description = "Number of containers to be create by the ecs service"
-  default     = 1
+  type = number
 }
 
 variable "app_port" {
@@ -13,23 +13,22 @@ variable "app_port" {
   default     = 3000
 }
 
-
 variable "project_name" {
   description = "Name of project"
-  default     = "wearslot"
+  type        = string
 }
 
 variable "container_name" {
   description = "Name of app container"
-  default     = "wearslot_store_app"
+  type        = string
 }
 
 variable "security_group" {
   description = "Security groups created by the vpc resource module"
 }
 
-variable "ecs_tasks" {
-  description = "ECS tasks Security groups created by the vpc resource module"
+variable "ecs_sg" {
+  description = "ECS Security groups created by the vpc resource module"
 }
 
 variable "vpc_id" {

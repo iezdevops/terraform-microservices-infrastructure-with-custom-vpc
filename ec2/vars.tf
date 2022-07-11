@@ -1,3 +1,8 @@
+variable "project_name" {
+  description = "Name of project"
+  type        = string
+}
+
 variable "instance_name" {
   type    = string
   default = "Wearslot"
@@ -10,10 +15,6 @@ variable "key_name" {
 
 variable "az_count" {
   default = 2
-}
-
-variable "project_name" {
-  default = "wearslot"
 }
 
 variable "security_group" {}

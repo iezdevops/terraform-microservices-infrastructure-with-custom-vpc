@@ -1,9 +1,24 @@
-variable "aws_region" {
+variable "region" {
   description = "Aws region to create resources"
-  default     = "us-east-1"
+  type = string
 }
 
 variable "project_name" {
   description = "Name of project"
-  default     = "wearslot"
+  type        = string
+}
+
+variable "ecs_app_count" {
+  description = "Number of ecs application count"
+  type = number
+}
+
+variable "container_name" {
+  description = "Name of ecs task container"
+  type = string
+}
+
+variable "container_port" {
+  description = "Port to access the container"
+  type = number
 }

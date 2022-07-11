@@ -18,7 +18,6 @@ output "eips" {
   value = aws_eip.eip
 }
 
-
 output "ecs_sg" {
   value = aws_security_group.ecs_sg
 }

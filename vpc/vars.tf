@@ -1,17 +1,14 @@
-variable "az_count" {
+variable "project_name" {
+  description = "Name of project"
+  type        = string
+}
 
-  description = "Number of subnets ids to be created"
-  default     = 2
+variable "az_count" {
+  description = "Number of resources to be created"
+  type        = number
 }
 
 variable "app_port" {
-
-  description = "Port for app service"
-  default     = 3000
-}
-
-
-variable "project_name" {
-  description = "Name of project"
-  default     = "wearslot"
+  description = "Port for the container that will be created by the ecs task"
+  type        = number
 }
