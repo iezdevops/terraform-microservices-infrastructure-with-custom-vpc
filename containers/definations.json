@@ -1,31 +1,21 @@
 [
   {
-    "cpu": 10,
-    "entryPoint": ["/"],
-    "environment": [
+    "memory": 512,
+    "cpu": 256,
+    "secrets": [
       {
-        "DB_DRIVER": "mysql", 
-        "DB_HOST": "wearslot-api-db.cmb8qd5vkmjr.us-east-1.rds.amazonaws.com",
-        "DB_USERNAME": "admin",
-        "DB_PASSWORD": "BBozKflAy8mh7ipnCtlL",
-        "DB_NAME": "wearslot"
+          "name": "DB_PASSWORD",
+          "valueFrom": "${secret_arn}/DATABASE_PASSWORD"
       }
     ],
     "essential": true,
-    "image": "",
-    "memory": 128,
-    "name": "jenkins",
+    "image": "${repo_url}",
+    "name": "${container_name}",
     "portMappings": [
       {
-        "containerPort": 8000,
-        "hostPort": 9000
+        "containerPort": "${container_port}",
+        "hostPort": "${container_port}"
       }
-    ],
-        "resourceRequirements":[
-            {
-                "type":"InferenceAccelerator",
-                "value":"device_1"
-            }
-        ]
+    ]
   }
 ]

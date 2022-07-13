@@ -4,13 +4,14 @@ variable "registry_name" {
 }
 
 variable "app_count" {
-  description = "Number of containers to be create by the ecs service"
+  description = "Number of containers to be created"
   type = number
 }
 
-variable "app_port" {
-  description = "Port for app service"
-  default     = 3000
+variable "container_port" {
+  description = "Port for app container service"
+  type = number
+  default     = 8000
 }
 
 variable "project_name" {

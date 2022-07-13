@@ -55,6 +55,7 @@ module "ecs" {
   registry_name  = "${var.project_name}/registry"
   app_count      = var.ecs_app_count
   container_name = var.container_name
+  container_port = var.container_port
 }
 
 module "rds" {

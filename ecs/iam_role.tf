@@ -1,4 +1,4 @@
-resource "aws_iam_role" "iam_role" {
+resource "aws_iam_role" "task_execution_role" {
   
   name = "${var.project_name}-ecs-role"
   assume_role_policy = jsonencode({
@@ -17,9 +17,9 @@ resource "aws_iam_role" "iam_role" {
 }
 
 
-resource "aws_iam_policy" "iam_policy" {
+resource "aws_iam_policy" "task_execution_policy" {
 
-  name = "${var.project_name}-ecr-access-policy"
+  name = "${var.project_name}-task-policy"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -35,13 +35,13 @@ resource "aws_iam_policy" "iam_policy" {
   })
 }
 
-resource "aws_iam_role_policy" "iam_rpolicy" {
+resource "aws_iam_role_policy" "task_execution_role_policy" {
   
-  role   = "${aws_iam_role.iam_role.id}"
+  role   = "${aws_iam_role.task_execution_role.id}"
   policy = "${data.aws_iam_policy_document.ecs_service_policy.json}"
 }
 
-resource "aws_iam_role_policy_attachment" "iam_rp_attachment" {
-    role       = "${aws_iam_role.iam_role.name}"
-    policy_arn = "${aws_iam_policy.iam_policy.arn}"
+resource "aws_iam_role_policy_attachment" "task_execution_role_policy_attachment" {
+    role       = "${aws_iam_role.task_execution_role.name}"
+    policy_arn = "${aws_iam_policy.task_execution_policy.arn}"
 }
