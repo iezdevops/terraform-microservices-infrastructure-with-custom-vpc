@@ -35,9 +35,7 @@ resource "aws_iam_policy" "task_execution_policy" {
         Sid    = "EnableResourceToReadTheSecret",
         Effect = "Allow",
         Action = "secretsmanager:GetSecretValue",
-        Resource = [
-          "${aws_secretsmanager_secret.main.arn}"
-        ]
+        Resource = "*"
       }
     ]
   })
