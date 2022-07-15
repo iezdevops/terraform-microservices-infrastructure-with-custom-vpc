@@ -62,4 +62,5 @@ module "rds" {
   source         = "./rds"
   security_group = module.vpc.security_group
   project_name   = var.project_name
+  vpc_id         = module.vpc.vpc_id
 }

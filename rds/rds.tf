@@ -1,5 +1,5 @@
 resource "aws_db_instance" "app_db" {
-  vpc_security_group_ids = ["${var.security_group}"]
+  vpc_security_group_ids = ["${aws_security_group.rds_security_group.id}"]
   allocated_storage      = 20
   engine                 = "mysql"
   engine_version         = "8.0"

@@ -4,16 +4,16 @@ resource "aws_security_group" "security_group" {
   vpc_id      = aws_vpc.vpc.id
 
   ingress {
-    to_port     = 22
     from_port   = 22
+    to_port     = 22
     cidr_blocks = ["0.0.0.0/0"]
     protocol    = "tcp"
     description = "Enabling port for ssh connection"
   }
 
   egress {
-    to_port     = 0
     from_port   = 0
+    to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
