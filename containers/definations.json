@@ -4,8 +4,8 @@
     "cpu": 256,
     "secrets": [
       {
-          "name": "DB_PASSWORD",
-          "valueFrom": "${secret_arn}/DATABASE_PASSWORD"
+          "name": "AWS_SECRETS",
+          "valueFrom": "${secret_arn}"
       }
     ],
     "essential": true,

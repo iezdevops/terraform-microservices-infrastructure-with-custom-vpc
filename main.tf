@@ -5,9 +5,14 @@ terraform {
     }
   }
 
-  # backend "s3" {
-
-  # }
+  backend "s3" {
+    profile        = "wearslot"
+    bucket         = "wearslot-tfbucket"
+    key            = "global/tf-infra/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-state-locking"
+  }
 
   # cloud {
   #   organization = "Wearslot"
@@ -19,13 +24,39 @@ terraform {
 }
 
 provider "aws" {
-  region     = var.region
-  access_key = "AKIARWHOR4WO7YWUFMOT"
-  secret_key = "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"
+  region  = var.region
+  profile = "default"
 }
 
 resource "aws_s3_bucket" "infra_backend_storage" {
-  bucket = "${var.project_name}-tfstate"
+  bucket = "${var.project_name}-tfbucket"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+
+  versioning {
+    enabled = true
+  }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+
+}
+
+resource "aws_dynamodb_table" "name" {
+  name         = "terraform-state-locking"
+  hash_key     = "LockID"
+  billing_mode = "PAY_PER_REQUEST"
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
 }
 
 module "vpc" {
