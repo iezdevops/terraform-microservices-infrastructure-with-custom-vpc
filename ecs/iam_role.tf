@@ -9,7 +9,7 @@ resource "aws_iam_role" "task_execution_role" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          Service = "ecs.amazonaws.com"
+          Service = "ecs-tasks.amazonaws.com"
         }
       },
     ]
