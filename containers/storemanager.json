@@ -1,0 +1,15 @@
+[
+    {
+        "memory": 512,
+        "cpu": 256,
+        "essential": true,
+        "image": "${repo_url}",
+        "name": "${container_name}",
+        "portMappings": [
+            {
+                "containerPort": 3000,
+                "hostPort": 3000
+            }
+        ]
+    }
+]

@@ -5,22 +5,15 @@ terraform {
     }
   }
 
+  # User s3 bucket as the terraform state backend 
   backend "s3" {
-    profile        = "wearslot"
-    bucket         = "wearslot-tfbucket"
+    profile        = "default"       # The default aws configuration profile (optional)
+    bucket         = "[bucket-name]" # This would be the name of the s3 bucket for terraform state file
     key            = "global/tf-infra/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
-    dynamodb_table = "terraform-state-locking"
+    dynamodb_table = "terraform-state-locking" # This requires the name of the dynamo db created for locking terraform state file.
   }
-
-  # cloud {
-  #   organization = "Wearslot"
-
-  #   workspaces {
-  #     name = "infrastructure"
-  #   }
-  # }
 }
 
 provider "aws" {
@@ -28,8 +21,8 @@ provider "aws" {
   profile = "default"
 }
 
-resource "aws_s3_bucket" "infra_backend_storage" {
-  bucket = "${var.project_name}-tfbucket"
+resource "aws_s3_bucket" "tfstate_backend_storage" {
+  bucket = "${var.project_name}-tfstate-bucket"
 
   lifecycle {
     prevent_destroy = true
@@ -90,8 +83,7 @@ module "ecs" {
 }
 
 module "rds" {
-  source         = "./rds"
-  security_group = module.vpc.security_group
-  project_name   = var.project_name
-  vpc_id         = module.vpc.vpc_id
+  source       = "./rds"
+  project_name = var.project_name
+  vpc_id       = module.vpc.vpc_id
 }

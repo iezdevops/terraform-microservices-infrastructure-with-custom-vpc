@@ -13,8 +13,8 @@
     "name": "${container_name}",
     "portMappings": [
       {
-        "containerPort": "${container_port}",
-        "hostPort": "${container_port}"
+        "containerPort": 8000,
+        "hostPort": 8000
       }
     ]
   }

@@ -19,6 +19,27 @@ resource "aws_security_group" "security_group" {
   }
 }
 
+resource "aws_security_group" "sg_for_https" {
+  name        = "${var.project_name}-https-sg"
+  description = "ELB allow traffic from anywhere using https protocol/port"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    cidr_blocks = ["0.0.0.0/0"]
+    protocol    = "tcp"
+    description = "Enabling port for internet connection"
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 # Security group for ECS
 # Traffic to the ECS Cluster should only come from the ALB
 resource "aws_security_group" "ecs_sg" {

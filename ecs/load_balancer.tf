@@ -37,3 +37,16 @@ resource "aws_alb_listener" "lb_listener" {
     type             = "forward"
   }
 }
+
+resource "aws_alb_listener" "lb_https_listener" {
+
+  load_balancer_arn = "${aws_alb.lb.id}"
+  port              = 443
+  protocol          = "HTTPS"
+  certificate_arn   = aws_acm_certificate.ssl_certificate.arn
+
+  default_action {
+    target_group_arn = "${aws_alb_target_group.alb_target_group.id}"
+    type             = "forward"
+  }
+}

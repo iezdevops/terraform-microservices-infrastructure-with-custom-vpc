@@ -1,7 +1,7 @@
 resource "aws_security_group" "rds_security_group" {
   name        = "${var.project_name}-database-security-group"
   description = "Allow inbound traffic from anywhere"
-  vpc_id      = aws_vpc.vpc.id
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = 0
