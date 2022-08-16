@@ -1,2 +1,3 @@
 .terraform
-wearslot.pem
+*.pem
+ecs/secret_manager.tf

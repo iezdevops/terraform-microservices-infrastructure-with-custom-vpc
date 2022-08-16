@@ -20,8 +20,8 @@ resource "aws_db_instance" "app_db" {
   skip_final_snapshot    = true
 }
 
-resource "local_sensitive_file" "db_credentials" {
-  content         = "Username=${aws_db_instance.app_db.username}\nPassword=${aws_db_instance.app_db.password}"
-  filename        = "${var.project_name}.txt"
-  file_permission = "0400"
-}
+# resource "local_sensitive_file" "db_credentials" {
+#   content         = "Username=${aws_db_instance.app_db.username}\nPassword=${aws_db_instance.app_db.password}"
+#   filename        = "${var.project_name}.txt"
+#   file_permission = "0400"
+# }
