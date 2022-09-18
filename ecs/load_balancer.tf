@@ -1,17 +1,11 @@
 resource "aws_alb" "lb" {
-
-  name = "${var.project_name}-default-lb"
-  subnets = [for subnet in var.public_subnet : subnet.id]
-  security_groups = [ "${var.security_group}" ]
-
-  tags = {
-    Environment = "production"
-  }
+  name            = "${var.project_name}-default-lb"
+  subnets         = [for subnet in var.subnets : subnet]
+  security_groups = ["${aws_security_group.security_group.id}", "${aws_security_group.security_group_for_https.id}"]
 }
 
 
 resource "aws_alb_target_group" "alb_target_group" {
-
   name        = "${var.project_name}-lb-tg"
   port        = 80
   protocol    = "HTTP"
@@ -19,34 +13,49 @@ resource "aws_alb_target_group" "alb_target_group" {
   target_type = "ip"
 
   health_check {
-    path = "/"
+    path     = "/"
     protocol = "HTTP"
-    matcher = "200"
-    
+    matcher  = "200"
   }
 }
 
 resource "aws_alb_listener" "lb_listener" {
 
-  load_balancer_arn = "${aws_alb.lb.id}"
+  load_balancer_arn = aws_alb.lb.id
   port              = 80
   protocol          = "HTTP"
 
+  # default_action {
+  #   target_group_arn = aws_alb_target_group.alb_target_group.id
+  #   type             = "redirect"
+  #   port             = 443
+  # }
+
   default_action {
-    target_group_arn = "${aws_alb_target_group.alb_target_group.id}"
-    type             = "forward"
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
   }
 }
 
 resource "aws_alb_listener" "lb_https_listener" {
 
-  load_balancer_arn = "${aws_alb.lb.id}"
+  load_balancer_arn = aws_alb.lb.id
   port              = 443
   protocol          = "HTTPS"
-  certificate_arn   = aws_acm_certificate.ssl_certificate.arn
+  certificate_arn   = aws_acm_certificate.myapp.arn
 
   default_action {
-    target_group_arn = "${aws_alb_target_group.alb_target_group.id}"
+    target_group_arn = aws_alb_target_group.alb_target_group.id
     type             = "forward"
   }
 }
+
+# resource "aws_alb_listener_certificate" "https_lb_certificate" {
+#   listener_arn    = aws_alb_listener.lb_https_listener.arn
+#   certificate_arn = aws_acm_certificate.myapp.arn
+# }

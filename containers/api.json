@@ -2,12 +2,7 @@
   {
     "memory": 512,
     "cpu": 256,
-    "secrets": [
-      {
-          "name": "AWS_SECRETS",
-          "valueFrom": "${secret_arn}"
-      }
-    ],
+   
     "essential": true,
     "image": "${repo_url}",
     "name": "${container_name}",

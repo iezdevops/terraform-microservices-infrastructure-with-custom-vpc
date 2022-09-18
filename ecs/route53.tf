@@ -1,10 +1,10 @@
 resource "aws_route53_zone" "primary" {
-  name = "wearslot.com"
+  name = "shareyaspace.com"
 }
 
 resource "aws_route53_record" "primary" {
   zone_id = aws_route53_zone.primary.zone_id
-  name    = "wearslot.com"
+  name    = "shareyaspace.com"
   type    = "A"
 
   alias {
@@ -15,7 +15,7 @@ resource "aws_route53_record" "primary" {
 }
 
 # This creates an SSL certificate
-resource "aws_acm_certificate" "ssl_certificate" {
+resource "aws_acm_certificate" "myapp" {
   domain_name       = aws_route53_record.primary.fqdn
   validation_method = "DNS"
   lifecycle {
@@ -30,18 +30,18 @@ resource "aws_acm_certificate" "ssl_certificate" {
 # This is somewhat less complex than the example at https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate_validation
 # - that above example, won't apply without targeting
 
-resource "aws_route53_record" "certificate_validation_records" {
+resource "aws_route53_record" "cert_validation" {
   allow_overwrite = true
-  name            = tolist(aws_acm_certificate.ssl_certificate.domain_validation_options)[0].resource_record_name
-  records         = [tolist(aws_acm_certificate.ssl_certificate.domain_validation_options)[0].resource_record_value]
-  type            = tolist(aws_acm_certificate.ssl_certificate.domain_validation_options)[0].resource_record_type
+  name            = tolist(aws_acm_certificate.myapp.domain_validation_options)[0].resource_record_name
+  records         = [tolist(aws_acm_certificate.myapp.domain_validation_options)[0].resource_record_value]
+  type            = tolist(aws_acm_certificate.myapp.domain_validation_options)[0].resource_record_type
   zone_id         = aws_route53_zone.primary.id
   ttl             = 60
   #   provider = aws.account_route53
 }
 
 # This tells terraform to cause the route53 validation to happen
-resource "aws_acm_certificate_validation" "certificate_validation" {
-  certificate_arn         = aws_acm_certificate.ssl_certificate.arn
-  validation_record_fqdns = [aws_route53_record.certificate_validation_records.fqdn]
+resource "aws_acm_certificate_validation" "cert" {
+  certificate_arn         = aws_acm_certificate.myapp.arn
+  validation_record_fqdns = [aws_route53_record.cert_validation.fqdn]
 }

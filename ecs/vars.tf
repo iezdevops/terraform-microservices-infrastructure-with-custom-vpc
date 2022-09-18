@@ -24,27 +24,15 @@ variable "container_name" {
   type        = string
 }
 
-variable "security_group" {
-  description = "Security groups created by the vpc resource module"
-}
-
-variable "ecs_sg" {
-  description = "ECS Security groups created by the vpc resource module"
-}
-
 variable "vpc_id" {
   description = "Vpc id from the vpc resource module"
 }
 
-variable "public_subnet" {
-  description = "public subnet ips from vpc module"
+variable "subnets" {
+  description = "subnet ips from vpc module"
 }
 
-variable "private_subnet" {
-  description = "private subnet ips from vpc module"
-}
-
-variable "eips" {
-  description = "Elastic ips created in the vpc module"
-}
-
+# variable "s3_storage" {
+#   type = string
+#   description = "app s3 bucket storage"
+# }
