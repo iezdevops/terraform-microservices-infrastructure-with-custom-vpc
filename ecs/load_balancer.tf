@@ -24,24 +24,13 @@ resource "aws_alb_target_group" "alb_target_group" {
 
 resource "aws_alb_listener" "lb_listener" {
 
-  load_balancer_arn = aws_alb.lb.id
+  load_balancer_arn = "${aws_alb.lb.id}"
   port              = 80
   protocol          = "HTTP"
 
-  # default_action {
-  #   target_group_arn = aws_alb_target_group.alb_target_group.id
-  #   type             = "redirect"
-  #   port             = 443
-  # }
-
   default_action {
-    type = "redirect"
-
-    redirect {
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
-    }
+    target_group_arn = "${aws_alb_target_group.alb_target_group.id}"
+    type             = "forward"
   }
 }
 
