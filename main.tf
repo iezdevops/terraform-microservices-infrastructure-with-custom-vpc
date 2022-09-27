@@ -69,26 +69,26 @@ resource "aws_dynamodb_table" "name" {
 # }
 
 
-# data "aws_vpc" "default" {
-#   id      = "vpc-0576f451206bf9341"
-#   default = true
-# }
+data "aws_vpc" "default" {
+  id      = "vpc-0576f451206bf9341"
+  default = true
+}
 
-# data "aws_subnet_ids" "public_subnets" {
-#   vpc_id = data.aws_vpc.default.id
-#   filter {
-#     name   = "vpc-id"
-#     values = [data.aws_vpc.default.id]
-#   }
-# }
+data "aws_subnet_ids" "public_subnets" {
+  vpc_id = data.aws_vpc.default.id
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+}
 
-# data "aws_security_groups" "default" {
+data "aws_security_groups" "default" {
 
-#   filter {
-#     name   = "vpc-id"
-#     values = [data.aws_vpc.default.id]
-#   }
-# }
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+}
 
 
 module "ecs" {
