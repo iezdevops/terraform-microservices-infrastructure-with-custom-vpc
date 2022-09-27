@@ -11,6 +11,9 @@ resource "aws_alb_target_group" "alb_target_group" {
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "ip"
+  depends_on = [
+    aws_alb.lb
+  ]
 
   health_check {
     path     = "/"
