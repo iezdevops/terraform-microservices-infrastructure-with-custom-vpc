@@ -8,9 +8,9 @@
     "name": "${container_name}",
     "portMappings": [
       {
-        "containerPort": 8000,
+        "containerPort": 3000,
         "hostPort": 8000
       }
     ]
   }
-]
+]gi
