@@ -23,6 +23,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "tfstate_backend_storage" {
   bucket = "${var.project_name}-tfstate-bucket"
+  force_destroy = true
 
   lifecycle {
     prevent_destroy = false
