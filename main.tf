@@ -25,7 +25,7 @@ resource "aws_s3_bucket" "tfstate_backend_storage" {
   bucket = "${var.project_name}-tfstate-bucket"
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 
   versioning {
